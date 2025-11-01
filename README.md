@@ -12,7 +12,10 @@ A Chrome extension that automates obtaining access codes for OpenAI's Sora video
 
 - **Full Automation**: Automatically navigates between Formbiz and Sora, pasting codes and checking for success
 - **Smart Tab Management**: Reuses existing tabs to keep your browser clean and efficient
+- **Clipboard-Free Capture**: 直接拦截 Formbiz 页面上的复制行为，不再依赖浏览器读取剪贴板
+- **Automatic Connection Recovery**: Detects "断开了连接" 提示后自动刷新 Sora 页面以恢复
 - **Configurable Timing**: Carefully timed interactions to mimic human behavior and avoid rate-limiting
+- **Result Handling**: 自动切换到 Sora 输入框粘贴并回车，无法判断时等待 20 秒后继续
 - **Simple Controls**: Easy start/stop button for full control over the automation process
 - **Visual Feedback**: Real-time status updates so you always know what's happening
 

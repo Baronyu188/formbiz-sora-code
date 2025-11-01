@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   startBtn.addEventListener('click', async () => {
     startBtn.disabled = true;
     stopBtn.disabled = false;
-    statusDiv.textContent = 'Starting automation...';
+    statusDiv.textContent = '正在启动自动化...';
     statusDiv.className = 'status status-active';
 
     await chrome.runtime.sendMessage({ action: 'startAutomation' });
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   stopBtn.addEventListener('click', async () => {
     startBtn.disabled = false;
     stopBtn.disabled = true;
-    statusDiv.textContent = 'Stopped';
+    statusDiv.textContent = '已停止';
     statusDiv.className = 'status status-idle';
 
     await chrome.runtime.sendMessage({ action: 'stopAutomation' });
@@ -35,16 +35,31 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   function updateUI(state) {
+    if (!state) {
+      return;
+    }
+
     if (state.active) {
       startBtn.disabled = true;
       stopBtn.disabled = false;
-      statusDiv.textContent = `Running: ${state.currentStep}`;
+      statusDiv.textContent = state.currentStep || '运行中...';
       statusDiv.className = 'status status-active';
     } else {
       startBtn.disabled = false;
       stopBtn.disabled = true;
-      statusDiv.textContent = 'Ready to start';
-      statusDiv.className = 'status status-idle';
+      if (state.currentStep === 'success') {
+        statusDiv.textContent = state.lastCode ? `成功提交邀请码：${state.lastCode}` : '已成功提交邀请码';
+        statusDiv.className = 'status status-active';
+      } else if (state.error) {
+        statusDiv.textContent = `已停止：${state.error}`;
+        statusDiv.className = 'status status-error';
+      } else if (state.currentStep && state.currentStep !== 'idle') {
+        statusDiv.textContent = state.currentStep;
+        statusDiv.className = 'status status-idle';
+      } else {
+        statusDiv.textContent = '就绪';
+        statusDiv.className = 'status status-idle';
+      }
     }
   }
 });

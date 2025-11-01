@@ -7,7 +7,8 @@
     "tabs",
     "activeTab",
     "scripting",
-    "storage"
+    "storage",
+    "windows"
   ],
   "host_permissions": [
     "https://formbiz.biz/*",
@@ -26,7 +27,8 @@
         "https://formbiz.biz/*",
         "https://sora.chatgpt.com/*"
       ],
-      "js": ["content-script.js"]
+      "js": ["content-script.js"],
+      "run_at": "document_start"
     }
   ]
 }
